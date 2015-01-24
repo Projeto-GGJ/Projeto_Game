@@ -11,6 +11,10 @@ public class personagem : MonoBehaviour {
 	Vector3 direcao;
 	int frames = 0;
 	bool pode_andar = true;
+	bool pode_cima = true;
+	bool pode_direita = true;
+	bool pode_baixo = true;
+	bool pode_esquerda = true;
 
 	// Use this for initialization
 	void Start () {
@@ -18,31 +22,31 @@ public class personagem : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		//movimentacao2 ();
-		movimentacao1_pt1 ();
-		movimentacao1_pt2 ();
+		movimentacao2 ();
+		//movimentacao1_pt1 ();
+		//movimentacao1_pt2 ();
 	}
 
 	void movimentacao1_pt1(){
-		if (Input.GetKeyDown (KeyCode.UpArrow)&& personagem_y < max_pos_y && pode_andar == true) {
+		if (Input.GetKeyDown (KeyCode.UpArrow)&& personagem_y < max_pos_y && pode_andar) {
 			pode_andar = false;
 			personagem_y++;
 			frames = 8;
 			direcao = new Vector3(0.179f,0.09f,0f);
 		}
-		if (Input.GetKeyDown (KeyCode.DownArrow) && personagem_y > max_pos_y*(-1) && pode_andar == true) {
+		if (Input.GetKeyDown (KeyCode.DownArrow) && personagem_y > max_pos_y*(-1) && pode_andar) {
 			pode_andar = false;
 			personagem_y--;
 			frames = 8;
 			direcao = new Vector3(-0.179f,-0.09f,0f);
 		}
-		if (Input.GetKeyDown (KeyCode.LeftArrow) && personagem_x > max_pos_x*(-1) && pode_andar == true) {
+		if (Input.GetKeyDown (KeyCode.LeftArrow) && personagem_x > max_pos_x*(-1) && pode_andar) {
 			pode_andar = false;	
 			personagem_x--;
 			frames = 8;
 			direcao = new Vector3(-0.179f,0.09f,0f);
 		}
-		if (Input.GetKeyDown (KeyCode.RightArrow) && personagem_x < max_pos_x && pode_andar == true) {
+		if (Input.GetKeyDown (KeyCode.RightArrow) && personagem_x < max_pos_x && pode_andar) {
 			pode_andar = false;
 			personagem_x++;
 			frames = 8;
@@ -57,41 +61,38 @@ public class personagem : MonoBehaviour {
 		}
 		else {
 			frames--;
-			//Debug.Log (name+" "+transform.position.y);
 		}
 	}
 
 	void movimentacao2(){
-		if (Input.GetKey (KeyCode.UpArrow) && delta_y < 3.2) {
+		if (Input.GetKeyDown (KeyCode.UpArrow) && delta_y < 3.2 && pode_cima) {
 			transform.Translate(0.179f,0.09f,0f);
 			delta_y += 0.179f;
-			//Debug.Log (name+" "+transform.position.y);
+			Debug.Log(transform.position);
 		}
-		if (Input.GetKey (KeyCode.DownArrow) && delta_y > -3.2) {
+		if (Input.GetKeyDown (KeyCode.DownArrow) && delta_y > -3.2 && pode_baixo) {
 			transform.Translate(-0.179f,-0.09f,0f);
 			delta_y -= 0.179f;
-			//Debug.Log (name+" "+transform.position.y);
+			Debug.Log(transform.position);
 		}
-		if (Input.GetKey (KeyCode.LeftArrow) && delta_x > -1.6) {
+		if (Input.GetKeyDown (KeyCode.LeftArrow) && delta_x > -1.6 && pode_esquerda) {
 			transform.Translate(-0.179f,0.09f,0f);
 			delta_x -= 0.09f;
-			//Debug.Log (name+" "+transform.position.y);
+			Debug.Log(transform.position);
 		}
-		if (Input.GetKey (KeyCode.RightArrow) && delta_x < 1.6) {
+		if (Input.GetKeyDown (KeyCode.RightArrow) && delta_x < 1.6 && pode_direita) {
 			transform.Translate(0.179f,-0.09f,0f);
 			delta_x += 0.09f;
-			//Debug.Log (name+" "+transform.position.y);
+			Debug.Log(transform.position);
 		}
 	}
 
-	void OnTriggerEnter2D(Collider2D objeto) {
-		Debug.Log (objeto.name);
-		if (objeto.transform.position.y > transform.position.y) {
-			objeto.renderer.sortingOrder = 1;
-			renderer.sortingOrder = 2;
+	void OnTriggerStay2D(Collider2D objeto) {
+
+		if (objeto.transform.position.y > transform.position.y ) {
+			pode_esquerda = false;
 		} else {
-			objeto.renderer.sortingOrder = 2;
-			renderer.sortingOrder = 1;
+			pode_esquerda = true;
 		}
 	}
 }
