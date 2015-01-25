@@ -18,7 +18,7 @@ public class controledelayer : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D objeto) {
-		if (objeto.transform.position.y >= transform.position.y) {
+		if (objeto.transform.position.y > transform.position.y - 0.4) {
 			objeto.renderer.sortingOrder = 1;
 			renderer.sortingOrder = 2;
 		} else {
@@ -29,7 +29,7 @@ public class controledelayer : MonoBehaviour {
 
 	void OnTriggerStay2D(Collider2D objeto) {
 
-		if (objeto.transform.position.y > transform.position.y + 0.5) {
+		if (objeto.transform.position.y > transform.position.y - 0.4) {
 			objeto.renderer.sortingOrder = 1;
 			renderer.sortingOrder = 2;
 		} else {
