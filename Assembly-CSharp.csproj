@@ -46,11 +46,14 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\credits.cs" />
      <Compile Include="Assets\fogo_criado1.cs" />
      <Compile Include="Assets\fogo_criado2.cs" />
      <Compile Include="Assets\fogo_script.cs" />
+     <Compile Include="Assets\fogo_script2.cs" />
      <Compile Include="Assets\personagem.cs" />
      <Compile Include="Assets\scene.cs" />
+     <Compile Include="Assets\tela_inicial.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
